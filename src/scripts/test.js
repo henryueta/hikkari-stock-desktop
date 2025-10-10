@@ -1,28 +1,11 @@
+import { api_endpoints } from "./config/config.js";
 import { Dialog } from "./dialog.js";
+import { onQuery } from "./fetch.js";
 import { onCreateForm, onDeleteForm } from "./form.js";
-import { onValidateDefault } from "./validation/default-validation.js";
+import { dialog_valid_type_list } from "./objects/dialog.js";
 import { onValidateProduct } from "./validation/product-validation.js";
 
-const dialog_valid_type_list = [
-    {
-        type:'form',
-        title:"Cadastro",
-        tag:{
-            type:"form",
-            className:"form"
-        }
-    },
-    {
-        type:"view",
-        title:"Visualização",
-        tag:{
-            type:"",
-            className:""
-        }
-    }
-]
-
-const onCoupledDialog = (type,table,method)=>{
+const onCoupledDialog = async (type,table,method,id)=>{
     const dialog = new Dialog(".dialog")
     
     const close_dialog_button = Array
@@ -51,7 +34,22 @@ const onCoupledDialog = (type,table,method)=>{
     tag.setAttribute("class",content.tag.className  )
 
     if(!!tag){
-        onCreateForm(table,tag,(data)=>{
+    let table_default_values = null; 
+        
+    if(id){
+        
+       await onQuery({
+            url:api_endpoints[table].get_id
+            +"&id="+id,
+            method:'get',
+        },{
+            onThen(data){
+                console.log(data)
+                table_default_values = data
+            }
+        })
+    }
+        onCreateForm(table,tag,async (data)=>{
 
             if(!onValidateProduct(data).isValid){
                 return
@@ -88,14 +86,16 @@ const onCoupledDialog = (type,table,method)=>{
                     {
                         return {
                             [variation_item[0]
-                            .replace("variation.","")
-                            .replace("."+i,"")
+                            .replace("variation_","")
+                            .replace("_"+i,"")
+                            .replace("_id","")
                             ]:variation_item[1]
                         }
                     }
                     )
 
-                    variation_formated_data.push(formated_variation_items)
+
+                    variation_formated_data.push(Object.assign({},...formated_variation_items))
                 console.log(formated_variation_items)
 
                 }
@@ -108,25 +108,24 @@ const onCoupledDialog = (type,table,method)=>{
                 })()
             }
 
-            console.log(product_data)
+            await onQuery({
+                url:api_endpoints[table][method]+(
+                    method === 'put'
+                    ? "&id="+id
+                    : ""
+                ),
+                method:method,
+                body:{
+                    data:product_data
+                }
+            },{
+                onThen(data){
+                    console.log(data)
+                }
+            })
 
         },false,(
-            method === 'put'
-            ? {
-                description_id:"sasa",
-                cod_id:"013",
-                variations_id:[
-                    {
-                        variation_name_id_0:"aaaaaa",
-                        variation_quantity_id_0:19
-                    },
-                    {
-                        variation_name_id_1:"bbbbbb",
-                        variation_quantity_id_1:20
-                    }
-                ]
-            }
-            : null
+            table_default_values
         ))
     }
 
@@ -142,3 +141,8 @@ const sale_register_button = document.querySelector("#sale_register_button");
 
 product_register_button.onclick = ()=>onCoupledDialog("form","product","post")
 sale_register_button.onclick = ()=>onCoupledDialog("form","product","put")
+
+
+export {
+    onCoupledDialog
+}

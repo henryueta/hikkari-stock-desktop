@@ -206,6 +206,13 @@ const onCreateForm = (
             ? table+"_"+field_item.id+"_"+qnt
             : field_item.id
         )
+
+        const current_default_value = (!!defaultValues 
+        ? (defaultValues[current_default_index]
+            ) 
+        : "")
+
+
         table_field.innerHTML = 
         `<p>
             ${field_item.title}
@@ -213,14 +220,8 @@ const onCreateForm = (
         <${field_item.tag} 
             type=${field_item.type}
             id=${table+"_"+field_item.id+"_"+qnt}
-            value=${
-                !!defaultValues 
-                ? (defaultValues[current_default_index] 
-                    ? defaultValues[current_default_index]
-                    : ""
-                ) 
-                : ""}
-            >
+            value="${current_default_value}">
+            
             ${(field_item.tag === 'select' && field_item.options)
                 ?
                 field_item.options.map((option_item)=>
