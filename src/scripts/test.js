@@ -5,7 +5,7 @@ import { onCreateForm, onDeleteForm } from "./form.js";
 import { dialog_valid_type_list } from "./objects/dialog.js";
 import { onValidateProduct } from "./validation/product-validation.js";
 
-const onCoupledDialog = async (type,table,method,id)=>{
+const onCoupledDialog = async (type,table,method,id,defaultValues)=>{
     const dialog = new Dialog(".dialog")
     
     const close_dialog_button = Array
@@ -34,9 +34,13 @@ const onCoupledDialog = async (type,table,method,id)=>{
     tag.setAttribute("class",content.tag.className  )
 
     if(!!tag){
-    let table_default_values = null; 
+    let table_default_values = (
+        !!defaultValues
+        ? defaultValues
+        : null 
+    ); 
         
-    if(id){
+    if(!!id){
         
        await onQuery({
             url:api_endpoints[table].get_id
@@ -137,10 +141,9 @@ const onCoupledDialog = async (type,table,method,id)=>{
 }
 
 const product_register_button = document.querySelector("#product_register_button")
-const sale_register_button = document.querySelector("#sale_register_button");
-
 product_register_button.onclick = ()=>onCoupledDialog("form","product","post")
-sale_register_button.onclick = ()=>onCoupledDialog("form","product","put")
+
+
 
 
 export {

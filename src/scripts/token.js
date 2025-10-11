@@ -8,7 +8,7 @@ const onCheckToken = ()=>{
         return  
     }
 
-    return window.location.href = "./public/pages/page1.html"
+    return window.location.href = "./public/pages/management.html?table=product"
 
 }
 

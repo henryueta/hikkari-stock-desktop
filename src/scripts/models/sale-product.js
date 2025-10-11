@@ -1,26 +1,33 @@
 const sale_product_form = [
     {
-        id:"identifier_id",
-        registerId:"identifier",
+        id:"product_identifier_id",
         tag:"input",
         title:"",
         type:"hidden",
     },
     {
         id:"product_id",
-        registerId:"product_id",
-        tag:"select",
+        tag:"input",
         title:"Produto",
         type:"text",
-        needQuery:true
     },
     {
-        id:"variations_id",
-        registerId:"variations_id",
-        tag:"",
-        title:"Variações",
-        type:"text",
-        table:"sale_variation"
+        id:"variation_identifier_id",
+        tag:"input",
+        title:"",
+        type:"hidden",
+    },
+    {
+        id:"variation_id",
+        tag:"input",
+        title:"Variação",
+        type:"text"
+    },
+    {
+        id:"quantity_id",
+        tag:"input",
+        title:"Quantidade",
+        type:"number"
     }
 ]
 

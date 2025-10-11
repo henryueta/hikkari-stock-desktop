@@ -25,10 +25,9 @@ const sale_form = [
     },
     {
         id:"products_id",
-        registerId:"products_id",
         tag:"",
+        type:"form",
         title:"Produtos",
-        type:"text",
         table:"sale_product"
     }
 ]

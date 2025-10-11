@@ -13,6 +13,10 @@ const api_endpoints = {
         get:main_endpoint+"product/get"+token_url_param,
         get_id:main_endpoint+"product/get-id"+token_url_param,
         put:main_endpoint+"product/put"+token_url_param
+    },
+    variation:{
+        get:main_endpoint+"variation/get"+token_url_param,
+        get_id:main_endpoint+"variation/get-id"+token_url_param,
     }
 
 }
