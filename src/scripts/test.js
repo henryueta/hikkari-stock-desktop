@@ -3,9 +3,9 @@ import { Dialog } from "./dialog.js";
 import { onQuery } from "./fetch.js";
 import { onCreateForm, onDeleteForm } from "./form.js";
 import { dialog_valid_type_list } from "./objects/dialog.js";
-import { onValidateProduct } from "./validation/product-validation.js";
+import { table_type_list } from "./objects/table.js";
 
-const onCoupledDialog = async (type,table,method,id,defaultValues)=>{
+const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValues)=>{
     const dialog = new Dialog(".dialog")
     
     const close_dialog_button = Array
@@ -55,63 +55,20 @@ const onCoupledDialog = async (type,table,method,id,defaultValues)=>{
     }
         onCreateForm(table,tag,async (data)=>{
 
-            if(!onValidateProduct(data).isValid){
-                return
-            }
+            // if(!onValidateProduct(data).isValid){
+            //     return
+            // }
             
             const formated_data_items = data.map((data_item)=>Object.entries(data_item)[0])
-            console.log(formated_data_items)
-            const product_data = {
-
-                description:formated_data_items
-                .find((data_item)=>data_item[0].includes('description_id'))[1],
-
-                cod:formated_data_items
-                .find((data_item)=>data_item[0].includes('cod'))[1],
-
-                variations:(()=>{
-
-                const variation_data_items = formated_data_items
-                .filter((data_item)=>data_item[0].includes('variation'))
-                // .map((data_item)=>{
-                //     return {
-                //         [data_item[0]]:data_item[1]
-                //     }
-                // })
-                const variation_formated_data = [];
-                for(let i=0;i < (variation_data_items.length / 3); i++){
-
-                    const formated_variation_items = variation_data_items
-                    .filter((variation_item)=>
-                    {   
-                        return (variation_item[0].includes(i))
-                    })
-                    .map((variation_item,variation_index)=>
-                    {
-                        return {
-                            [variation_item[0]
-                            .replace("variation_","")
-                            .replace("_"+i,"")
-                            .replace("_id","")
-                            ]:variation_item[1]
-                        }
-                    }
-                    )
-
-
-                    variation_formated_data.push(Object.assign({},...formated_variation_items))
-                console.log(formated_variation_items)
-
-                }
-
-                // for(let i=0;i < (variation_data_items.length / 3); i++){
-                //     console.log(variation_item[0].includes(i))
-                // }
-                
-                return variation_formated_data
-                })()
-            }
-
+            const current_table = (()=>{
+                const table_index = table_type_list.findIndex((table_item)=>
+                table_item.type === table
+                )
+                return table_type_list[table_index]
+            })()
+            
+            const formated_data = current_table.validator(formated_data_items)
+            
             await onQuery({
                 url:api_endpoints[table][method]+(
                     method === 'put'
@@ -120,7 +77,7 @@ const onCoupledDialog = async (type,table,method,id,defaultValues)=>{
                 ),
                 method:method,
                 body:{
-                    data:product_data
+                    data:formated_data
                 }
             },{
                 onThen(data){
@@ -128,9 +85,7 @@ const onCoupledDialog = async (type,table,method,id,defaultValues)=>{
                 }
             })
 
-        },false,(
-            table_default_values
-        ))
+        },false,table_default_values,maxNumberValues)
     }
 
     dialog_content.append(tag);

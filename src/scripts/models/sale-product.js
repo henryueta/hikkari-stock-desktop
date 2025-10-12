@@ -7,7 +7,7 @@ const sale_product_form = [
     },
     {
         id:"product_id",
-        tag:"input",
+        tag:"p",
         title:"Produto",
         type:"text",
     },
@@ -19,7 +19,7 @@ const sale_product_form = [
     },
     {
         id:"variation_id",
-        tag:"input",
+        tag:"p",
         title:"Variação",
         type:"text"
     },

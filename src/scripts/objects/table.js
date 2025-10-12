@@ -2,17 +2,18 @@ import { api_endpoints } from "../config/config.js"
 import { onQuery } from "../fetch.js"
 import { product_form } from "../models/product.js"
 import { sale_product_form } from "../models/sale-product.js"
-import { sale_variation_form } from "../models/sale-variation.js"
 import { sale_form } from "../models/sale.js"
-import { size_form } from "../models/size.js"
 import { variation_form } from "../models/variation.js"
 import { variation_list } from "../sale.js"
 import { onCoupledDialog } from "../test.js"
+import { onValidateProduct } from "../validation/product-validation.js"
+import { onValidateSale } from "../validation/sale-validation.js"
 
 
 const table_type_list = [
     {
         title:"Produto",
+        validator:onValidateProduct,
         type:'product',
         havePage:true,
         default_actions:{
@@ -34,6 +35,7 @@ const table_type_list = [
     },
     {
         title:"Variação",
+        validator:null,
         type:"variation",
         havePage:false,
         default_actions:{
@@ -62,9 +64,21 @@ const table_type_list = [
                             }
                         },{
                             onThen(data){
-                                
-                                const formated_data = data.map(({quantity_id,...rest})=>rest)
-                                 onCoupledDialog("form","sale","post",null,{products_id: formated_data})
+                                let max_number_values = {};
+                                const formated_data = data.map((data_item)=>
+                                    {
+                                        const filtered_data = Object.entries(data_item)
+                                        .filter((data_item_entrie)=>{
+                                            if(data_item_entrie[0].includes("sale_product_quantity_id")){
+                                                max_number_values = {[data_item_entrie[0]]:data_item_entrie[1],...max_number_values}
+                                            }
+                                            return !data_item_entrie[0].includes("sale_product_quantity_id")
+                                        })
+                                        
+                                        return Object.fromEntries(filtered_data)
+                                    })
+                                    console.log(max_number_values)
+                                 onCoupledDialog("form","sale","post",null,{products_id: formated_data},max_number_values)
                             }
                         })
 
@@ -86,6 +100,7 @@ const table_type_list = [
     },
     {
         title:"Venda",
+        validator:onValidateSale,
         type:'sale',
         havePage:true,
         default_actions:{

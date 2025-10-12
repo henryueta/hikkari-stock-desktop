@@ -94,7 +94,8 @@ const onCreateForm = (
     field_container,
     handleSubmit,
     forList,
-    defaultValues
+    defaultValues,
+    maxNumberValues
 )=>{
     const form = document.querySelector(".form-container>form")
     const form_title = document.querySelector(".form-container>.title-container")
@@ -109,23 +110,16 @@ const onCreateForm = (
 
     const table_form = table_type_list
     .find((table_item)=>table_item.type === table)
-    // if(!table_form.havePage && forPage){
-    //     return
-    // }
-
-    // const title_container = (
-    //     !!forPage
-    //     ? form_title
-    //     : dialog_title
-    // )
-
-    // title_container.innerHTML = table_form.title
     table_form.form.forEach((field_item)=>{
 
         if(!field_item.tag && field_item.table && !field_item.isFromFieldArray){
-            const coupled_content = document.createElement("div");
             const coupled_field_list = document.createElement("div");
             coupled_field_list.setAttribute("class","coupled-field-list-container")
+            field_container.append(coupled_field_list)
+            
+            if(!!field_item.table_actions.insert){
+
+            const coupled_content = document.createElement("div");
             coupled_content.setAttribute("class","coupled-container")
             coupled_content.innerHTML = "Coupled"
             const coupled_form_button  = document.createElement("button")
@@ -133,22 +127,22 @@ const onCreateForm = (
             coupled_form_button.innerHTML = 
             `Adicionar ${field_item.title}`
             coupled_content.append(coupled_form_button)
-            field_container.append(coupled_field_list)
             field_container.append(coupled_content)
 
-            coupled_form_button.addEventListener("click",()=>{
+                coupled_form_button.addEventListener("click",()=>{
 
-                qnt++; 
-                const list_item_container = document.createElement("div")
-                list_item_container.setAttribute("class","field-list-item-container")
-                coupled_field_list.append(list_item_container)
-                onCreateForm(
-                    field_item.table,
-                    list_item_container,
-                    null,
-                    true,
-                    null)
-            })
+                    qnt++; 
+                    const list_item_container = document.createElement("div")
+                    list_item_container.setAttribute("class","field-list-item-container")
+                    coupled_field_list.append(list_item_container)
+                    onCreateForm(
+                        field_item.table,
+                        list_item_container,
+                        null,
+                        true,
+                        null)
+                })
+            }
 
             if(defaultValues) {
 
@@ -167,6 +161,11 @@ const onCreateForm = (
                         !!defaultValues
                         ? default_field_item
                         : []
+                    ),
+                    (
+                        !!maxNumberValues
+                        ? maxNumberValues
+                        :[]        
                     ))
 
                 } 
@@ -186,19 +185,7 @@ const onCreateForm = (
 
             return
         }
-
-        // const element_for_append = (
-        //     !forList
-        //     ? field_container
-        //     : (()=>{
-        //         const list_item_container = document.createElement("div")
-        //         list_item_container.setAttribute("class","field-list-container")
-        //         return list_item_container
-        //     })()
-        // )
-
         const table_field = document.createElement("label")
-        // table_field.setAttribute("for",field_item.id)
         const current_default_index = (
             !!defaultValues
             &&
@@ -208,20 +195,48 @@ const onCreateForm = (
         )
 
         const current_default_value = (!!defaultValues 
-        ? (defaultValues[current_default_index]
+        ? (!!defaultValues[current_default_index]
+            ? defaultValues[current_default_index]
+            : ""
             ) 
+        : "");
+
+        
+        const current_number_max_value = (!!maxNumberValues
+        ? (!!maxNumberValues[current_default_index]
+            ? maxNumberValues[current_default_index]
+            : ""
+        )    
         : "")
-
-
+        
         table_field.innerHTML = 
         `<p>
             ${field_item.title}
         </p>
-        <${field_item.tag} 
-            type=${field_item.type}
-            id=${table+"_"+field_item.id+"_"+qnt}
-            value="${current_default_value}">
-            
+        <${field_item.tag}
+            ${
+                field_item.tag !== 'p' || field_item.tag !== 'span'
+                ?   (
+                    `type=${field_item.type}
+                    id=${table+"_"+field_item.id+"_"+qnt}
+                    value="${current_default_value}"
+                    max="${current_number_max_value}"
+                    min="${0}"
+                    placeholder="${(
+                        current_number_max_value 
+                        ? "Máx: "+current_number_max_value 
+                        : ""
+                    )}""`
+                    )
+                : ""
+            }
+        >
+            ${(field_item.tag === 'p' || field_item.tag === 'span')
+                ? 
+                current_default_value
+                :
+                ""
+            }
             ${(field_item.tag === 'select' && field_item.options)
                 ?
                 field_item.options.map((option_item)=>
@@ -248,15 +263,25 @@ const onCreateForm = (
             e.preventDefault()
            if(handleSubmit){
 
-            const form_data_list = field_container.querySelectorAll("input")                            
-            const form_data_values = Array.from(form_data_list).map((data_item)=>
-            {
-                return {
-                    [data_item.id]:data_item.value
+            const form_input_data = field_container.querySelectorAll("input") 
+            const form_select_data = field_container.querySelectorAll("select")
+            const form_data_values = (()=>{
+                const formated_input_data = Array.from(form_input_data).map((data_item)=>
+                {
+                    return {
+                        [data_item.id]:data_item.value
+                    }
                 }
-            }
-            )
-
+                )
+                const formated_select_data = Array.from(form_select_data).map((data_item)=>
+                {
+                    return {
+                        [data_item.id]:data_item.value
+                    }
+                }
+                )
+                return [...formated_input_data,...formated_select_data]
+            })()
             handleSubmit(form_data_values)
 
            }
@@ -270,7 +295,6 @@ const onCreateForm = (
 
 }
 
-// onCreateForm(onGetTableType(),form.children[0],true)
 
 
 export {

@@ -18,7 +18,11 @@ const product_form = [
         tag:"",
         type:"form",
         title:"Variações",
-        table:"variation"
+        table:"variation",
+        table_actions:{
+            insert:true,
+            delete:true
+        }
     }
 ]
 

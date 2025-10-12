@@ -17,6 +17,9 @@ const api_endpoints = {
     variation:{
         get:main_endpoint+"variation/get"+token_url_param,
         get_id:main_endpoint+"variation/get-id"+token_url_param,
+    },
+    sale:{
+        post:main_endpoint+"sale/post"+token_url_param
     }
 
 }
