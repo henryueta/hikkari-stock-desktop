@@ -9,10 +9,20 @@ const onQuery = async (params,treatment)=>{
         },
         body:JSON.stringify(params.body)
     })
-    .then((res)=>res.json())
+    .then((res)=>{
+        if(res.status === 200 || res.status === 201){
+            return res.json()
+        }
+        throw new Error(res.json().message)
+    })
     .then(res=>{
-
-        if(treatment &&  !!treatment.onThen){
+        if(
+            treatment 
+            && 
+            !!treatment.onThen
+            &&
+            !!res
+        ){
             treatment.onThen(res.data)
         }
     })

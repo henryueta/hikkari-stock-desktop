@@ -40,7 +40,7 @@ const table_type_list = [
         havePage:false,
         default_actions:{
             edit:false,
-            delete:false
+            delete:true
         },
         selection:{
             selectable:true,
@@ -77,7 +77,6 @@ const table_type_list = [
                                         
                                         return Object.fromEntries(filtered_data)
                                     })
-                                    console.log(max_number_values)
                                  onCoupledDialog("form","sale","post",null,{products_id: formated_data},max_number_values)
                             }
                         })

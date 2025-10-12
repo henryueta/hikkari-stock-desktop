@@ -1,7 +1,8 @@
 import { api_endpoints } from "./config/config.js";
 import { Dialog } from "./dialog.js";
 import { onQuery } from "./fetch.js";
-import { onCreateForm, onDeleteForm } from "./form.js";
+import { onCreateForm, onDeleteForm, onDisableFormFields } from "./form.js";
+import { onResetTable } from "./management.js";
 import { dialog_valid_type_list } from "./objects/dialog.js";
 import { table_type_list } from "./objects/table.js";
 
@@ -31,7 +32,7 @@ const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValue
     }
 
     const tag = document.createElement(content.tag.type)
-    tag.setAttribute("class",content.tag.className  )
+    tag.setAttribute("class",content.tag.className)
 
     if(!!tag){
     let table_default_values = (
@@ -81,7 +82,17 @@ const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValue
                 }
             },{
                 onThen(data){
-                    console.log(data)
+                    console.log(data);
+                    dialog.onCloseModal();
+                    onResetTable({
+                        head:document.querySelector(".table-head"),
+                        body:document.querySelector(".table-body")
+                    })
+                },
+                onCatch(error){
+                    console.log(error)
+                    const current_form = document.querySelector(".form")
+                    onDisableFormFields(current_form,false)
                 }
             })
 

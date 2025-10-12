@@ -239,6 +239,22 @@ const onCreateTable = (document_structure,header,data,table)=>{
 
 }
 
+const onDeleteTable = (document_structure)=>{
+
+    document_structure.head.innerHTML = "";
+    document_structure.body.innerHTML = "";
+    return
+
+}
+
+const onResetTable = (document_structure)=>{
+    onDeleteTable(document_structure);
+    setTimeout(()=>{
+        onQueryTableStructure()
+    },1000)
+    return
+}
+
 const onQueryTableStructure = ()=>{
 
     const url_value = window.location.search;
@@ -272,4 +288,9 @@ const onQueryTableStructure = ()=>{
 
 onQueryTableStructure()
 
+export {
+    onCreateTable,
+    onDeleteTable,
+    onResetTable
+}
 

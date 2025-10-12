@@ -12,6 +12,12 @@ const sale_form = [
         type:"text"
     },
     {
+        id:"sale_creation_date_id",
+        tag:"input",
+        title:"Dada de emissão",
+        type:"date"
+    },
+    {
         id:"initial_price_id",
         tag:"input",
         title:"Preço inicial",

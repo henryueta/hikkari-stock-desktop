@@ -28,7 +28,7 @@ const onCreateFieldList = ()=>{
 const onDeleteField = (field_container)=>{
 
     const delete_button = document.createElement('button');
-    delete_button.innerHTML = "Deletar "+qnt
+    delete_button.innerHTML = "Deletar"
     delete_button.setAttribute("type","button")
     delete_button.setAttribute("value",qnt)
     delete_button.setAttribute("id","field_delete_button")
@@ -89,6 +89,26 @@ const onDeleteForm = ()=>{
 
 }
 
+const onDisableFormFields = (form,isDisable)=>{
+
+    const form_input_data = form.querySelectorAll("input") 
+    const form_select_data = form.querySelectorAll("select")
+    const form_button_data = form.querySelectorAll("button")
+
+    form_input_data.forEach((input_item)=>
+        input_item.disabled = isDisable
+    )
+
+    form_select_data.forEach((select_item)=>
+        select_item.disabled = isDisable
+    )
+
+    form_button_data.forEach((button_item)=>
+        button_item.disabled = isDisable
+    )
+    return 
+}
+
 const onCreateForm = (
     table,
     field_container,
@@ -97,10 +117,7 @@ const onCreateForm = (
     defaultValues,
     maxNumberValues
 )=>{
-    const form = document.querySelector(".form-container>form")
-    const form_title = document.querySelector(".form-container>.title-container")
-    const dialog = document.querySelector(".dialog")
-    const dialog_title = document.querySelector(".dialog>.title-container")
+
 
     if(!table){
         return
@@ -145,7 +162,7 @@ const onCreateForm = (
             }
 
             if(defaultValues) {
-
+                
                 for(const default_field_item of defaultValues[field_item.id]){
                 qnt++;
                 const list_item_container = document.createElement("div")
@@ -220,6 +237,7 @@ const onCreateForm = (
                     `type=${field_item.type}
                     id=${table+"_"+field_item.id+"_"+qnt}
                     value="${current_default_value}"
+                    
                     max="${current_number_max_value}"
                     min="${0}"
                     placeholder="${(
@@ -241,7 +259,15 @@ const onCreateForm = (
                 ?
                 field_item.options.map((option_item)=>
                 {
-                    return `<option value=${option_item.value}>${option_item.label}</option>`
+                    return `<option 
+                    value=${option_item.value}
+                    ${(option_item.value === current_default_value)
+                        ? "selected"
+                        : ""
+                    }
+                    >
+                        ${option_item.label}
+                        </option>`
                 }
                 )
                 :
@@ -253,18 +279,21 @@ const onCreateForm = (
     })
 
         if(forList){
-            onDeleteField(field_container)
+            if(!!table_form.default_actions.delete){
+                onDeleteField(field_container)
+            }
             return 
         }
-
-
-
+        
         field_container.addEventListener("submit",(e)=>{
             e.preventDefault()
            if(handleSubmit){
 
             const form_input_data = field_container.querySelectorAll("input") 
             const form_select_data = field_container.querySelectorAll("select")
+
+            onDisableFormFields(field_container,true)
+
             const form_data_values = (()=>{
                 const formated_input_data = Array.from(form_input_data).map((data_item)=>
                 {
@@ -299,5 +328,6 @@ const onCreateForm = (
 
 export {
     onCreateForm,
-    onDeleteForm
+    onDeleteForm,
+    onDisableFormFields
 }

@@ -46,6 +46,8 @@ const onValidateSale = (data)=>{
         .find((data_item)=>data_item[0].includes('client_name_id'))[1],
         client_location:data
         .find((data_item)=>data_item[0].includes('client_location_id'))[1],
+        sale_creation_date:data
+        .find((data_item)=>data_item[0].includes('sale_creation_date_id'))[1],
         products:product_formated_data
     };
 

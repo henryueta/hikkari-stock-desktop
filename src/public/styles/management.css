@@ -1,0 +1,16 @@
+
+.field-list-item-container{
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0rem 1rem 0rem;
+}
+
+input[type="date"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #333;
+  font-family: inherit;
+}

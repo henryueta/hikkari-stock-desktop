@@ -19,7 +19,10 @@ const api_endpoints = {
         get_id:main_endpoint+"variation/get-id"+token_url_param,
     },
     sale:{
-        post:main_endpoint+"sale/post"+token_url_param
+        get:main_endpoint+"sale/get"+token_url_param,
+        get_id:main_endpoint+"sale/get-id"+token_url_param,
+        post:main_endpoint+"sale/post"+token_url_param,
+        put:main_endpoint+"sale/put"+token_url_param
     }
 
 }
