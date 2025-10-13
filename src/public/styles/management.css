@@ -4,6 +4,14 @@
     gap: 1rem;
     margin: 1rem 0rem 1rem 0rem;
 }
+#sale_register_button{
+  display: none;
+}
+
+.table-actions-container{
+  display: flex;
+  flex-direction: row;
+}
 
 input[type="date"] {
   padding: 10px;

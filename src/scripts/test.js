@@ -2,7 +2,7 @@ import { api_endpoints } from "./config/config.js";
 import { Dialog } from "./dialog.js";
 import { onQuery } from "./fetch.js";
 import { onCreateForm, onDeleteForm, onDisableFormFields } from "./form.js";
-import { onResetTable } from "./management.js";
+import { onChangeTableType, onResetTable } from "./management.js";
 import { dialog_valid_type_list } from "./objects/dialog.js";
 import { table_type_list } from "./objects/table.js";
 
@@ -105,10 +105,6 @@ const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValue
     dialog.onShowModal()
    
 }
-
-const product_register_button = document.querySelector("#product_register_button")
-product_register_button.onclick = ()=>onCoupledDialog("form","product","post")
-
 
 
 

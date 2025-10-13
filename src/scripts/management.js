@@ -255,6 +255,30 @@ const onResetTable = (document_structure)=>{
     return
 }
 
+const onChangeTableType = (type)=>{
+    const current_url = new URL(window.location.href);
+    current_url.searchParams.set('table',type)
+      product_register_button.disabled = (type === 'sale');
+        product_register_button.style.display = (type === 'sale' ? 'none' : 'flex');
+        const sale_register_button = document.querySelector("#sale_register_button");
+        sale_register_button.disabled = (type === 'sale');
+        sale_register_button.style.display = 'none';
+    window.history.replaceState({},'',current_url);
+    onResetTable({
+        head:document.querySelector(".table-head"),
+        body:document.querySelector(".table-body")
+    })
+    return
+}
+const product_register_button = document.querySelector("#product_register_button")
+product_register_button.onclick = ()=>onCoupledDialog("form","product","post")
+
+const product_table_type_button  = document.querySelector("#product_type_button");
+const sale_table_type_button  = document.querySelector("#sale_type_button");
+
+product_table_type_button.onclick = ()=>{onChangeTableType("product");}
+sale_table_type_button.onclick = ()=>{onChangeTableType("sale");}
+
 const onQueryTableStructure = ()=>{
 
     const url_value = window.location.search;
@@ -265,6 +289,8 @@ const onQueryTableStructure = ()=>{
     const table_type = table_type_list.find((table_item)=>
         table_item.type === table
     )
+
+      
 
     if(!table_type){
         return
@@ -288,9 +314,12 @@ const onQueryTableStructure = ()=>{
 
 onQueryTableStructure()
 
+
+
 export {
     onCreateTable,
     onDeleteTable,
-    onResetTable
+    onResetTable,
+    onChangeTableType
 }
 

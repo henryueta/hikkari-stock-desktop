@@ -2,13 +2,13 @@
 const storage = {
 
     onGet(key){
-        return localStorage.getItem(key)
+        return sessionStorage.getItem(key)
     },
     onSet(key,value){
-        return localStorage.setItem(key,value)
+        return sessionStorage.setItem(key,value)
     },
     onRemove(key){
-        return localStorage.removeItem(key)
+        return sessionStorage.removeItem(key)
     }
 
 }

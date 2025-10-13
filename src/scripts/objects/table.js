@@ -53,7 +53,7 @@ const table_type_list = [
                     variation_list.splice(variation_list.findIndex((variation_item)=>variation_item === id),1)
                 }
                 if(!!variation_list.length){
-                    sale_register_button.style.display = "flex";
+                    sale_register_button.style.display = "block";
                     sale_register_button.onclick = async ()=>{
                         
                         await onQuery({
