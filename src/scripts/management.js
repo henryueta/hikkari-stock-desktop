@@ -136,6 +136,13 @@ const onCreateTableDataAction = (type,params)=>{
 
 }
 
+
+const onCreateTableTitle = (title)=>{
+     const table_title_container = document.querySelector(".table-title-container")
+    
+    table_title_container.children[0].textContent = title
+}
+
 const onCreateTable = (document_structure,header,data,table)=>{
 
     const table_header_row = document.createElement("tr");
@@ -147,7 +154,7 @@ const onCreateTable = (document_structure,header,data,table)=>{
             table_header_row.append(table_header)
         }
     }
-    
+    onCreateTableTitle("Gerenciamento de "+table.title+"s")
 
     document_structure.head.append(table_header_row)
 
@@ -258,6 +265,7 @@ const onResetTable = (document_structure)=>{
 const onChangeTableType = (type)=>{
     const current_url = new URL(window.location.href);
     current_url.searchParams.set('table',type)
+    onCreateTableTitle("")
       product_register_button.disabled = (type === 'sale');
         product_register_button.style.display = (type === 'sale' ? 'none' : 'flex');
         const sale_register_button = document.querySelector("#sale_register_button");

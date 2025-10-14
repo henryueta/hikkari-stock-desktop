@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../styles/index.css">
     <link rel="stylesheet" href="../styles/management.css">
 </head>
 <body>
@@ -29,17 +30,32 @@
     </dialog>
 
     <section>
+        <div class="table-title-container">
+            <h1>Gerenciamento</h1>
+        </div>
         <div class="table-type-change-container">
-            <button id="product_type_button">Produtos</button>
-            <button id="sale_type_button">Vendas</button>
+            <button 
+            class="icon_button"
+            id="product_type_button">
+            <img src="../../assets/imgs/product.ico" alt="">
+            <span>Produtos</span>
+            </button>
+            <button 
+            class="icon_button"
+            id="sale_type_button">
+            <img src="../../assets/imgs/sale.ico" alt="">
+            <span>Vendas</span>
+            </button>
         </div>
         <div class="table-actions-container">
             <button
+            class="default_button"
             id="product_register_button" 
             onclick="">
                 Cadastrar produto
             </button>
             <button 
+            class="default_button"
             id="sale_register_button"
             onclick="">
                 Cadastrar venda
