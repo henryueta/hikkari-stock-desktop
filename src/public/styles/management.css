@@ -1,4 +1,8 @@
 
+.table-section{
+  backdrop-filter: blur(20px);
+}
+
 .field-list-item-container{
     display: flex;
     gap: 1rem;
@@ -9,19 +13,15 @@
 }
 
 .table-actions-container{
-  padding: 0.5rem 0.5rem 0rem 0.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  border: 0.1rem solid rgb(1, 107, 169);
-    position: relative;
-    height: 40px;
-  background: linear-gradient(0deg,rgba(84, 133, 213, 0.3) 15%, rgba(120, 187, 231, 0.3) 28%, rgba(116, 176, 245, 0.3) 69%, rgba(97, 160, 227, 0.3) 97%);
+  /* border: 0.1rem solid rgb(1, 107, 169); */
+  /* background: linear-gradient(0deg,rgba(84, 133, 213, 0.3) 15%, rgba(120, 187, 231, 0.3) 28%, rgba(116, 176, 245, 0.3) 69%, rgba(97, 160, 227, 0.3) 97%); */
 }
 
-#sale_register_button{
-  left: 145px;
-}
+
 
 input[type="date"] {
   padding: 10px;
@@ -37,53 +37,64 @@ input[type="date"] {
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  background: #a9acc2;
-background: linear-gradient(0deg,rgb(0, 76, 191,0.5) 0%, rgb(0, 76, 189,0.5) 9%, rgb(0, 67, 222,0.5) 82%, rgb(57, 114, 236,0.5) 96%, rgb(57, 114, 236,0.5) 100%);
-  backdrop-filter: blur(10px);
+  background-image: url("https://pbs.twimg.com/media/GKHB5OwagAAczje.jpg:large");
+  background-size: cover;
+  background-position: center;
+  /* background: #a9acc2; */
+/* background: linear-gradient(0deg,rgb(0, 76, 191,0.5) 0%, rgb(0, 76, 189,0.5) 9%, rgb(0, 67, 222,0.5) 82%, rgb(57, 114, 236,0.5) 96%, rgb(57, 114, 236,0.5) 100%); */
   /* border: 0.5rem solid rgba(73, 73, 73, 0.2); */
   border-radius: 0.2rem;
-  padding: 0.5rem;
-
+  padding: 1rem;
 }
 
 .table-title-container{
-    background:rgba(51, 116, 255, 0.5);
-  backdrop-filter: blur(10px);
+  /* border: 0.1rem solid rgb(18, 94, 169); */
+  background: linear-gradient(0deg,rgba(73, 73, 73, 0.1) 15%, rgba(255, 255, 255, 0.1) 28%, rgba(109, 109, 109, 0.1) 69%, rgba(209, 209, 209, 0.1) 97%); 
+
   /* border: 0.1rem solid rgba(73, 73, 73, 0.2); */
-  border-radius: 0.2rem;
-  padding: 1.5rem;
+  padding: 0.5rem 1.2rem 0.5rem 1.2rem;
+  text-align: center;
 }
 
 .table-title-container h1{
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: lighter;
-  color: rgb(255, 255, 255);
-  text-shadow: 0rem 0rem 0.5rem rgb(0, 0, 0);
+  color: rgb(88, 88, 88);
 }
 
 .data-container{
   padding: 0.5rem 0rem 0.5rem 0rem;
+  backdrop-filter: blur(20px);
+  padding: 1rem;
+
 }
 
 .data-container table{
-  background-color: white;
+  background-color: rgb(255, 255, 255,0.8);
   width: 100%;
    border-collapse: collapse;
 }
 
 
 .data-container table th{
+  color: rgb(36, 36, 36);
     text-align: start;
     padding: 0.2rem;
     font-weight: lighter;
-    border: 0.1rem solid rgb(18, 94, 169);
-    background: linear-gradient(0deg,rgba(45, 108, 210, 0.3) 15%, rgba(33, 129, 194,0.3) 28%, rgba(87, 139, 199, 0.3) 69%, rgb(210, 232, 255,0.3) 97%);
+    border: 0.1rem solid rgba(93, 120, 133, 0.3);
+
+    background: linear-gradient(0deg,rgba(0, 0, 0, 0.1) 15%, rgba(255, 255, 255, 0.1) 28%, rgba(251, 255, 255, 0.1) 69%, rgba(255, 230, 230, 0.1) 97%); 
+
 }
 
 .data-container table td{
-    border: 0.1rem solid rgb(18, 94, 169);
+  /* background: linear-gradient(0deg,rgba(0, 0, 0, 0.1) 15%, rgba(255, 255, 255, 0.1) 28%, rgba(251, 255, 255, 0.1) 69%, rgba(255, 230, 230, 0.1) 97%);  */
+
+  border: 0.1rem solid rgba(93, 120, 133, 0.3);
+
     border-top: none;
     text-align: start;
     padding: 0.2rem;
+    color: rgb(36, 36, 36);
 
 }
