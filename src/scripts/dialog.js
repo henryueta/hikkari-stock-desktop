@@ -27,7 +27,8 @@ class Dialog {
             .find((dialog_item)=>dialog_item.className == "header-container");
 
             this.content = element_childrens
-            .find((dialog_item)=>dialog_item.className == "content-container");
+            .find((dialog_item)=>dialog_item.className == "dialog-content-container")
+            .children[0]
         }
 
         }

@@ -15,7 +15,7 @@ const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValue
 
     const dialog_title = Array
     .from(dialog.header.children)
-    .find((dialog_item)=>dialog_item.className == "title-container").children[0]
+    .find((dialog_item)=>dialog_item.className == "title-container").children[1]
 
     const dialog_content = dialog.content;
     dialog_content.innerHTML = "";
@@ -40,8 +40,77 @@ const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValue
         ? defaultValues
         : null 
     ); 
+    
+    if(type === 'delete_confirm'){
         
-    if(!!id){
+        const confirm_ask_container = document.createElement("div")
+        confirm_ask_container.setAttribute("class","confirm-ask-container")
+        const confirm_ask = document.createElement("h2")
+        confirm_ask.textContent = "Deseja deletar o registro?"
+        confirm_ask_container.append(confirm_ask)
+        tag.append(confirm_ask_container)
+
+        const current_table = table_type_list.find((item)=>item.type === table)
+        if(!!current_table && current_table.type === 'sale'){
+
+            const stock_devolution_ask_container = document.createElement("div");
+            stock_devolution_ask_container.setAttribute("class","stock-devolution-ask-container");
+            const stock_devolution_ask = document.createElement("span");
+            stock_devolution_ask.textContent = "Devolver produtos ao estoque";
+            const stock_devolution_check = document.createElement("input");
+            stock_devolution_check.setAttribute("type","checkbox");
+            stock_devolution_check.setAttribute("id","stock_devolution_id");
+
+            stock_devolution_ask_container.append(stock_devolution_check)
+            stock_devolution_ask_container.append(stock_devolution_ask)
+            tag.append(stock_devolution_ask_container)
+        }
+
+        const confirm_actions_container = document.createElement("div")
+        confirm_actions_container.setAttribute("class","confirm-actions-container")
+        const confirm_button = document.createElement("button")
+        confirm_button.innerHTML = "Confirmar"
+        confirm_button.setAttribute("id","confirm-button")
+        const cancel_button = document.createElement("button")
+        cancel_button.innerHTML = "Cancelar"
+        confirm_button.setAttribute("id","cancel-button")
+
+        confirm_actions_container.append(cancel_button)
+        cancel_button.onclick = ()=>{dialog.onCloseModal()}
+
+        confirm_actions_container.append(confirm_button)
+        confirm_button.onclick = async ()=>{
+            await onQuery({
+                url:api_endpoints[table].delete
+                +"&id="+id
+                +(
+                    current_table.type === 'sale'
+                    ? "&stock_devolution="+(()=>{
+
+                        const stock_devolution = document.querySelector("stock_devolution_id")
+                        return stock_devolution.value
+                    })()
+                    : ""
+                ),
+                method:'delete',
+            },{
+                onThen(data){
+                    console.log(data)
+                    onResetTable({
+                        head:document.querySelector(".table-head"),
+                        body:document.querySelector(".table-body")
+                    })
+                    dialog.onCloseModal()
+                }
+            })
+        }
+
+        tag.append(confirm_actions_container)
+
+   
+    }
+
+    if(!!table && !!id){
         
        await onQuery({
             url:api_endpoints[table].get_id
@@ -54,6 +123,7 @@ const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValue
             }
         })
     }
+        if(!!table && type === 'form'){
         onCreateForm(table,tag,async (data)=>{
 
             // if(!onValidateProduct(data).isValid){
@@ -97,6 +167,7 @@ const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValue
             })
 
         },false,table_default_values,maxNumberValues)
+        }
     }
 
     dialog_content.append(tag);

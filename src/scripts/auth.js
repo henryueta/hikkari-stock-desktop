@@ -1,7 +1,7 @@
 
 import { html } from "./document.js"
 import {onQuery} from "./fetch.js"
-import { storage } from "./local-storage.js"
+import { storage } from "./session-storage.js"
 import { onCheckToken } from "./token.js"
 
 

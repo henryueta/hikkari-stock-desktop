@@ -1,4 +1,4 @@
-import { storage } from "../local-storage.js"
+import { storage } from "../session-storage.js"
 
 const main_endpoint = "http://localhost:2050/"
 
@@ -12,7 +12,8 @@ const api_endpoints = {
         post:main_endpoint+"product/post"+token_url_param,
         get:main_endpoint+"product/get"+token_url_param,
         get_id:main_endpoint+"product/get-id"+token_url_param,
-        put:main_endpoint+"product/put"+token_url_param
+        put:main_endpoint+"product/put"+token_url_param,
+        delete:main_endpoint+"product/delete"+token_url_param
     },
     variation:{
         get:main_endpoint+"variation/get"+token_url_param,

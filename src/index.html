@@ -4,22 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./public/styles/index.css">
+    <link rel="stylesheet" href="./public/styles/auth.css">
     <title>Document</title>
 </head>
 <body>
-    
-    <label for="username">
-        <input type="text" id="username">
-    </label>
-    <label for="password">
-        <input type="password" id="password">
-    </label>
-    <button
-    class="default_button"
-    id="authSubmitButton">
-        Entrar
-    </button>
-    
+    <section class="auth-section">   
+        <div class="auth-container">
+            <div class="title-container">
+                <img src="./assets/imgs/info.png" alt="">
+                <span>Autenticação</span>
+            </div>
+            <div class="auth-content-container">
+            <!-- <div class="user-image-container">
+                <img src="../src/assets/imgs/info.png" alt="">
+            </div> -->
+            <label for="username">
+                <p>Username</p>
+                <input type="text" id="username">
+            </label>
+            <label for="password">
+                <p>Senha</p>
+                <input type="password" id="password">
+            </label>
+            <button
+            class="default_button"
+            id="authSubmitButton">
+                Entrar
+            </button>
+            </div>
+        </div>
+    </section>
     <script type="module" src="./scripts/main.js"></script>
 </body>
 </html>

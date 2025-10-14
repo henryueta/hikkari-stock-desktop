@@ -8,11 +8,11 @@ const dialog_valid_type_list = [
         }
     },
     {
-        type:"view",
-        title:"Visualização",
+        type:"delete_confirm",
+        title:"Confirmação",
         tag:{
-            type:"",
-            className:""
+            type:"div",
+            className:"confirm-action-container"
         }
     }
 ]

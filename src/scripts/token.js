@@ -1,4 +1,4 @@
-import { storage } from "./local-storage.js"
+import { storage } from "./session-storage.js"
 
 const onCheckToken = ()=>{
 

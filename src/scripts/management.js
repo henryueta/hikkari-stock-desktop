@@ -65,7 +65,9 @@ const onCreateTableDataAction = (type,params)=>{
         "delete":()=>{
             return onCreateDefaultTableDataAction(
                 "Deletar",
-                    ()=>console.log(params.id)
+                    ()=>{console.log(params.id)
+                        onCoupledDialog("delete_confirm",params.table,"delete",params.id)
+                    }
             )
         },
         "expand":()=>{
@@ -86,8 +88,7 @@ const onCreateTableDataAction = (type,params)=>{
                         button_toggle = !button_toggle
                         if(button_toggle){
                             console.log(button_toggle)
-                            const sub_table_data = document.createElement("td")
-                            sub_table_data.setAttribute("class","expand-data")
+                            
                             const current_table = table_type_list[
                                     table_type_list.findIndex((table_item)=>table_item.type === params.table)
                                 ]
@@ -106,9 +107,9 @@ const onCreateTableDataAction = (type,params)=>{
                                     },data.header,data.data,table_of_expansion)
                                 }
                             })
-                            params.sub_table.append(sub_table_data)
                             return
                         }
+                        
                         table_head.innerHTML = "";
                         table_body.innerHTML = "";
                         return
@@ -218,7 +219,8 @@ const onCreateTable = (document_structure,header,data,table)=>{
 
         if(table.default_actions.delete){
             const delete_column = onCreateTableDataAction('delete',{
-                id:table_id
+                id:table_id,
+                table:table.type
             })
             table_data_row.append(delete_column)
         }

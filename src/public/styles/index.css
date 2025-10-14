@@ -10,6 +10,7 @@
   padding:0;
   margin: 0;
   box-sizing: border-box;
+  transition: 0.2s ease-in-out;
 }
 
 body{
@@ -22,11 +23,11 @@ body{
 .default_button{
     /* background: #3e7afa; */
     /* background: linear-gradient(0deg,rgba(86, 125, 191, 0.1) 30%, rgba(33, 129, 194,0.1) 28%, rgba(87, 192, 199,0.1) 69%, rgba(255, 255, 255, 1) 97%); */
-      border: 0.1rem solid rgb(1, 107, 169);
-
-    background-color: white;
+      background: linear-gradient(0deg,rgba(218, 218, 218, 0.9) 15%, rgb(202, 202, 202,0.9) 28%, rgba(251, 255, 255,0.9) 69%, rgb(255, 255, 255,0.9) 97%); 
     /* box-shadow: 0rem 0rem 0.2rem rgb(0, 0, 0,0.2); */
-    border-radius: 0.2rem;
+    border-radius: 0.3rem;
+    border: 0.12rem solid white;
+    border-style: outset;
     padding: 0.5rem;
     color: rgb(68, 68, 68);
     cursor: pointer;
@@ -38,44 +39,131 @@ body{
     background: linear-gradient(0deg,rgb(130, 169, 255,0.3) 5%, rgba(33, 129, 194,0.3) 28%, rgba(87, 192, 199,0.3) 69%, rgba(255, 255, 255, 1) 97%);
 } */
 
+
 .icon_button_container{
-    border: 0.1rem solid rgba(93, 120, 133, 0.3);
-    padding: 0.2rem;
-    background-color: rgb(255,255,255,0.5);
+    
+    /* border: 0.2rem solid rgba(93, 120, 133, 0.3); */
+    border-radius: 0.5rem;
+    border: 0.12rem solid white;
+    border-style: outset;
+    padding: 0.3rem 5rem 0.3rem 0.5rem;
+    background: linear-gradient(0deg,rgba(218, 218, 218, 0.6) 15%, rgb(202, 202, 202,0.6) 28%, rgba(251, 255, 255,0.6) 69%, rgb(255, 255, 255,0.6) 97%); 
+    box-shadow: 0rem 0rem 0.8rem rgba(255, 255, 255, 0.3);
+    text-align: center;
+    cursor: pointer;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
 }
 
 .icon_button{
     background: none;
      /* background:black; */
-    background: linear-gradient(0deg,rgba(0, 0, 0, 0.1) 15%, rgba(255, 255, 255, 0.1) 28%, rgba(251, 255, 255, 0.1) 69%, rgba(255, 230, 230, 0.1) 97%); 
+    /* background: linear-gradient(0deg,rgba(218, 218, 218, 0.5) 15%, rgb(202, 202, 202,0.5) 28%, rgba(251, 255, 255,0.5) 69%, rgb(255, 255, 255,0.5) 97%);  */
     /* border-radius: 0.1rem solid rgba(255, 255, 255, 0.5); */
-    border: 0.1rem solid rgba(48, 123, 173, 0.1);
-     padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+     /* padding: 0.3rem 0.8rem 0.3rem 0.8rem; */
     /* color: rgb(68, 68, 68); */
-    cursor: pointer;
     display: flex;
-    gap: 0.5rem;
-    flex-direction: column;
-    box-shadow: 0rem 0rem 0.5rem rgb(0,0,0,0.3);
-    backdrop-filter: blur(10px);
+    /* gap: 0.2rem; */
+    /* box-shadow: 0rem 0rem 0.1rem rgb(0,0,0,0.3); */
 
 }
 
 .icon_button>img{
-    width: 5rem;
+    width: 2.5rem;
     /* background: linear-gradient(0deg,rgb(130, 169, 255,0.1) 15%, rgba(33, 129, 194,0.1) 28%, rgba(87, 192, 199,0.1) 69%, rgba(255, 255, 255, 0.1) 97%);  */
-    padding: 0.2rem;
 }
 
-.icon_button span{
-    font-size: 1rem;
-    color: rgb(114, 115, 116);
+.icon_button_container span{
+    font-size: 0.8rem;
+    letter-spacing: 0.02rem;
+    color: rgb(255, 255, 255);
+    text-shadow:0rem 0.15rem 0.1rem rgb(15, 15, 15,0.6);
 }
 
-.icon_button:hover{
-    span{
-        text-decoration: underline;
-        /* text-shadow: 0rem 0rem 1rem rgb(0, 0, 0); */
-        color: rgb(190, 222, 233);
+
+.icon_button_container:hover{
+    scale: 1.05;
+    box-shadow: 0rem 0rem 0.5rem white;
+    img{
+    filter: drop-shadow(0rem 0rem 0.3rem rgba(255, 255, 255));
     }
+ }
+
+
+
+ .dialog{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: none;
+    border-radius:0.5rem ;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
+    width: 50dvw;
+    /* max-height: 85dvh; */
+    /* min-height: 40dvh; */
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    background: linear-gradient(0deg,rgb(173, 173, 173) 15%, rgb(180, 180, 180) 28%, rgb(228, 228, 228) 69%, rgb(245, 245, 245) 97%); 
+    border-radius: 0.5rem;
+    box-shadow: 0rem 0rem 0.5rem rgb(0, 0, 0,0.5);
+ }
+
+.dialog .dialog-content-container{
+    width: 100%;
+    max-height: 85dvh;
+    min-height: 35dvh;
+    padding: 1rem;
+    border-radius: 0.2rem;
+    background-color: rgb(46, 74, 110,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+ .dialog .header-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    
+ }
+
+.dialog .header-container #close-dialog-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 100%;
+}
+
+.dialog .header-container .title-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+}
+
+.dialog .header-container .title-container h1{
+    font-size: 0.8rem;
+    font-weight: lighter;
+}
+
+.dialog .header-container .title-container img{
+    width: 1.5rem;
+}
+
+ .dialog .header-container .close-container img{
+    width: 1.5rem;
+ }
+
+ .dialog .dialog-content-container .content-container{
+    padding: 0.5rem;
  }
