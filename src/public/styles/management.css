@@ -1,6 +1,8 @@
 
 .table-section{
-  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
 }
 
 .field-list-item-container{
@@ -8,17 +10,26 @@
     gap: 1rem;
     margin: 1rem 0rem 1rem 0rem;
 }
-#sale_register_button{
+/* #sale_register_button{
   display: none;
-}
+} */
 
 .table-actions-container{
-  padding: 1rem;
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(0deg,rgb(235, 235, 235) 15%, rgb(226, 226, 226) 28%, rgba(251, 255, 255,1) 69%, rgb(255, 255, 255,1) 97%); 
   /* border: 0.1rem solid rgb(1, 107, 169); */
   /* background: linear-gradient(0deg,rgba(84, 133, 213, 0.3) 15%, rgba(120, 187, 231, 0.3) 28%, rgba(116, 176, 245, 0.3) 69%, rgba(97, 160, 227, 0.3) 97%); */
+}
+
+.table-actions-container .actions-container{
+  display: flex;
+  border-radius: 0.2rem;
+  flex-direction: row;
+  gap: 0.5rem;
+  background-color: rgb(46, 74, 110,0.3);
+  padding: 0.5rem;
 }
 
 
@@ -37,14 +48,16 @@ input[type="date"] {
   display: flex;
   flex-direction: row;
   gap: 2.5rem;
+  background-color: rgb(42, 58, 102);
   background-image: url("../../assets/imgs/background.jpg");
   background-size: cover;
   background-position: center;
   /* background: #a9acc2; */
 /* background: linear-gradient(0deg,rgb(0, 76, 191,0.5) 0%, rgb(0, 76, 189,0.5) 9%, rgb(0, 67, 222,0.5) 82%, rgb(57, 114, 236,0.5) 96%, rgb(57, 114, 236,0.5) 100%); */
   /* border: 0.5rem solid rgba(73, 73, 73, 0.2); */
-  border-radius: 0.2rem;
   padding: 1rem;
+  position: relative;
+  height:3rem;
 }
 
 .table-title-container{
@@ -64,23 +77,26 @@ input[type="date"] {
 }
 
 .data-container{
-  padding: 0.5rem 0rem 0.5rem 0rem;
+  flex-grow: 1;
   backdrop-filter: blur(20px);
-  padding: 1rem;
-
+  /* padding: 1rem; */
+  width: 100dvw;
+  height: 100%;
+  overflow-y: auto;
 }
 
-.data-container table{
+.data-container>table{
   background-color: rgb(255, 255, 255,0.8);
   width: 100%;
    border-collapse: collapse;
+   overflow-y: auto;
 }
 
 
-.data-container table th{
+.data-container>table th{
   color: rgb(36, 36, 36);
     text-align: start;
-    padding: 0.2rem;
+    padding: 0.3rem;
     font-weight: lighter;
     border: 0.1rem solid rgba(93, 120, 133, 0.3);
 
@@ -88,14 +104,135 @@ input[type="date"] {
 
 }
 
-.data-container table td{
+.data-container>table>tbody>tr:not(.expand-row)>td:has(button){
+  padding: 0;
+}
+
+.data-container>table>tbody>tr:not(.expand-row)>td>button:hover{
+  background-color: rgb(160, 160, 160);
+  opacity: 60%;
+}
+
+.data-container>table>tbody>tr:not(.expand-row)>td{
   /* background: linear-gradient(0deg,rgba(0, 0, 0, 0.1) 15%, rgba(255, 255, 255, 0.1) 28%, rgba(251, 255, 255, 0.1) 69%, rgba(255, 230, 230, 0.1) 97%);  */
 
   border: 0.1rem solid rgba(93, 120, 133, 0.3);
 
     border-top: none;
     text-align: start;
-    padding: 0.2rem;
+    padding: 0.3rem;
     color: rgb(36, 36, 36);
+     background-color: white;
+}
 
+#product_type_button_container{
+  bottom: 0rem;
+  left: 0.3rem;
+}
+
+#sale_type_button_container{
+  bottom:0rem;
+  left: 12rem;
+}
+
+.expand-row{
+  width: 100%;
+}
+
+.expand-row>td{
+  border: 0.1rem solid rgba(93, 120, 133, 0.3);
+  border-top: none;
+  text-align: start;
+  padding: 1rem;
+  color: rgb(36, 36, 36);
+  column-span: all;
+  background-color: rgb(46, 74, 110,0.3);
+}
+
+.sub-table{
+  border-collapse: collapse;
+  width: 100%;
+  display: table-row;
+  /* background-color: white; */
+}
+
+.sub-table caption{
+  padding: 0.5rem;
+  text-align: start;
+}
+
+.sub-table td{
+  width: 100dvw;
+  border: 0.1rem solid rgba(93, 120, 133, 0.3);
+  border-top: none;
+  text-align: start;
+  padding: 0.3rem;
+  color: rgb(36, 36, 36);
+}
+
+.sub-table thead,tbody{
+  background-color: white;
+}
+
+
+#data-edit-button{
+  
+  border: 0.12rem solid white;
+  border-style: outset;
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  color: rgb(68, 68, 68);
+  cursor: pointer;
+  /* position: absolute; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  width: 100%;
+
+}
+
+#data-edit-button img{
+  width: 1.5rem;
+}
+
+#data-delete-button{
+  
+  border: 0.12rem solid white;
+  border-style: outset;
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  color: rgb(68, 68, 68);
+  cursor: pointer;
+  /* position: absolute; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  width: 100%;
+
+}
+
+#data-delete-button img{
+  width: 1.5rem;
+}
+
+#data-expand-button{
+  
+  border: 0.12rem solid white;
+  border-style: outset;
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  color: rgb(68, 68, 68);
+  cursor: pointer;
+  /* position: absolute; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  width: 100%;
+}
+
+#data-expand-button img{
+  width: 1.5rem;
 }

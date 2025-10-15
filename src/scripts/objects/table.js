@@ -53,7 +53,11 @@ const table_type_list = [
                     variation_list.splice(variation_list.findIndex((variation_item)=>variation_item === id),1)
                 }
                 if(!!variation_list.length){
-                    sale_register_button.style.display = "block";
+                    // sale_register_button.style.display = "block";
+                    sale_register_button.disabled = false;
+
+        // sale_register_button.classList.remove("default_button_disabled")
+
                     sale_register_button.onclick = async ()=>{
                         
                         await onQuery({
@@ -85,7 +89,9 @@ const table_type_list = [
 
                     return 
                 }
-                    sale_register_button.style.display = "none";
+                    // sale_register_button.style.display = "none";
+                    sale_register_button.disabled = true;
+                    // sale_register_button.classList.toggle("default_button_disabled")
                 return 
                 
             }

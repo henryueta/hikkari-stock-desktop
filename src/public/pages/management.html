@@ -44,36 +44,53 @@
                 </button>
                 <span>Usuários</span>
             </div> -->
-            <div class="icon_button_container">
+            <div 
+            id="product_type_button_container"
+            class="icon_button_container">
                 <button 
                 class="icon_button"
                 id="product_type_button">
-                    <img src="../../assets/imgs/folder.ico" alt="">
+                    <!-- <img src="../../assets/imgs/folder.ico" alt=""> -->
                 </button>
                 <span>Produtos</span>
             </div>
-            <div class="icon_button_container">
+            <div 
+            id="sale_type_button_container"
+            class="icon_button_container">
                 <button 
                 class="icon_button"
                 id="sale_type_button">
-                    <img src="../../assets/imgs/folder.ico" alt="">
+                    <!-- <img src="../../assets/imgs/folder.ico" alt=""> -->
                 </button>
                 <span>Vendas</span>
             </div>
         </div>
         <div class="table-actions-container">
-            <button
-            class="default_button"
-            id="product_register_button" 
-            onclick="">
-                Cadastrar produto
-            </button>
-            <button 
-            class="default_button"
-            id="sale_register_button"
-            onclick="">
-                Cadastrar venda
-            </button>
+            <div class="actions-container">
+                <button
+                class="default_button"
+                id="product_register_button" 
+                onclick="">
+                    <img src="../../assets/imgs/add.ico" alt="">
+                    <span>
+                        Cadastrar 
+                        <br>
+                        produto
+                    </span>
+                </button>
+                <button 
+                class="default_button"
+                disabled
+                id="sale_register_button"
+                onclick="">
+                <img src="../../assets/imgs/add.ico" alt="">
+                    <span>
+                        Cadastrar 
+                        <br>
+                        venda
+                    </span>
+                </button>
+            </div>
         </div>
         
 
@@ -90,8 +107,6 @@
             </table>
 
         </div>
-
-       
 
 
     </section>

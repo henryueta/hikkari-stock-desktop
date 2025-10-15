@@ -53,7 +53,6 @@ const onDeleteField = (field_container)=>{
                         list_field_elements.length > 1
                 ){
                         field_button.value -=1
-                        field_button.innerHTML = (field_button.value)
                 }
         })
 

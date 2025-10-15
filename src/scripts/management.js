@@ -38,10 +38,16 @@ const onCreateCheckBoxTableDataAction = (onclick)=>{
     return default_data_column
 }
 
-const onCreateDefaultTableDataAction = (title,onclick)=>{
+const onCreateDefaultTableDataAction = (id,title,onclick)=>{
     const default_data_column = document.createElement('td');
     const default_data_button = document.createElement("button");
-    default_data_button.innerHTML = title;
+    const default_data_button_icon = document.createElement("img")
+    default_data_button.append(default_data_button_icon)
+    const default_data_title = document.createElement("span")
+    default_data_title.textContent = title
+    default_data_button_icon.setAttribute("src","../../assets/imgs/Other008.ico")
+    default_data_button.append(default_data_title);
+    default_data_button.setAttribute("id",id)
     default_data_button.onclick = ()=>onclick();
     default_data_column.append(default_data_button)
     return default_data_column
@@ -53,6 +59,7 @@ const onCreateTableDataAction = (type,params)=>{
     const valid_type = {
         "edit":()=>{
             return onCreateDefaultTableDataAction(
+                "data-edit-button",
                 "Editar",
                     ()=>onCoupledDialog(
                     'form',
@@ -64,6 +71,7 @@ const onCreateTableDataAction = (type,params)=>{
         },
         "delete":()=>{
             return onCreateDefaultTableDataAction(
+                "data-delete-button",
                 "Deletar",
                     ()=>{console.log(params.id)
                         onCoupledDialog("delete_confirm",params.table,"delete",params.id)
@@ -73,8 +81,10 @@ const onCreateTableDataAction = (type,params)=>{
         "expand":()=>{
              let button_toggle = false;
             return onCreateDefaultTableDataAction(
+                "data-expand-button",
                 "Expandir",
                     ()=>{
+                        params.sub_table.parentElement.parentElement.style.display = "table-row"
                         const table_head = params.sub_table.querySelector("thead");
                         const table_body = params.sub_table.querySelector("tbody");
                         const table_body_selected_list = table_body.querySelectorAll("input[type=checkbox]")
@@ -112,6 +122,7 @@ const onCreateTableDataAction = (type,params)=>{
                         
                         table_head.innerHTML = "";
                         table_body.innerHTML = "";
+                         params.sub_table.parentElement.parentElement.style.display = "none"
                         return
                         }
                         return
@@ -164,7 +175,7 @@ const onCreateTable = (document_structure,header,data,table)=>{
         table_header_row.append(edit_header_column)
     }
 
-    if(table.default_actions.delete){
+    if(table.default_actions.delete && !!table.expansion.expansive){
         const delete_header_column = onCreateTableHeaderAction('delete')    
         table_header_row.append(delete_header_column)
     }
@@ -197,12 +208,22 @@ const onCreateTable = (document_structure,header,data,table)=>{
             table_expand_row.setAttribute("class","expand-row")
             sub_table = document.createElement("table")
             sub_table.setAttribute("class","sub-table")
+            const sub_table_caption = document.createElement("caption")
+            const sub_table_type = table_type_list.find((table_item)=>
+                table_item.type === table.expansion.expasive_table_type
+            )
+            sub_table_caption.textContent = "Tabela de "+sub_table_type.title;
             const sub_table_head = document.createElement("thead");
             const sub_table_body = document.createElement("tbody");
+            sub_table.append(sub_table_caption)
             sub_table.append(sub_table_head)
             sub_table.append(sub_table_body)
-            table_expand_row.append(sub_table)
+            const table_expand_row_td = document.createElement("td")
+            table_expand_row_td.append(sub_table)
+            table_expand_row.append(table_expand_row_td)
+            table_expand_row_td.setAttribute("colspan",7)
             document_structure.body.append(table_expand_row)
+            table_expand_row.style.display = "none"
         }
 
         const table_id = info.find((data_info)=>
@@ -217,7 +238,7 @@ const onCreateTable = (document_structure,header,data,table)=>{
             table_data_row.append(edit_column)
         }
 
-        if(table.default_actions.delete){
+        if(table.default_actions.delete && !!table.expansion.expansive){
             const delete_column = onCreateTableDataAction('delete',{
                 id:table_id,
                 table:table.type
@@ -231,6 +252,7 @@ const onCreateTable = (document_structure,header,data,table)=>{
                 sub_table:sub_table,
                 table:table.type
             }) 
+            
             table_data_row.append(expand_column)
         }
 
@@ -261,7 +283,22 @@ const onResetTable = (document_structure)=>{
     setTimeout(()=>{
         onQueryTableStructure()
     },1000)
+    
     return
+}
+
+const onToggleTableType = (type)=>{
+    if(type === 'sale'){
+        product_table_type_button.classList.add("icon_button_container_disabled")
+        sale_table_type_button.classList.remove("icon_button_container_disabled")
+        return 
+    } 
+    if(type === 'product'){
+        product_table_type_button.classList.remove("icon_button_container_disabled")
+        sale_table_type_button.classList.add("icon_button_container_disabled")
+        return 
+    }
+
 }
 
 const onChangeTableType = (type)=>{
@@ -269,10 +306,11 @@ const onChangeTableType = (type)=>{
     current_url.searchParams.set('table',type)
     onCreateTableTitle("")
       product_register_button.disabled = (type === 'sale');
-        product_register_button.style.display = (type === 'sale' ? 'none' : 'flex');
+    //   product_register_button.classList.toggle("default_button_disabled")
         const sale_register_button = document.querySelector("#sale_register_button");
-        sale_register_button.disabled = (type === 'sale');
-        sale_register_button.style.display = 'none';
+        sale_register_button.disabled = true;
+        // sale_register_button.style.display = 'none';
+        // sale_register_button.classList.toggle("default_button_disabled")
     window.history.replaceState({},'',current_url);
     onResetTable({
         head:document.querySelector(".table-head"),
@@ -283,8 +321,8 @@ const onChangeTableType = (type)=>{
 const product_register_button = document.querySelector("#product_register_button")
 product_register_button.onclick = ()=>onCoupledDialog("form","product","post")
 
-const product_table_type_button  = document.querySelector("#product_type_button");
-const sale_table_type_button  = document.querySelector("#sale_type_button");
+const product_table_type_button  = document.querySelector("#product_type_button_container");
+const sale_table_type_button  = document.querySelector("#sale_type_button_container");
 
 product_table_type_button.onclick = ()=>{onChangeTableType("product");}
 sale_table_type_button.onclick = ()=>{onChangeTableType("sale");}
@@ -305,6 +343,9 @@ const onQueryTableStructure = ()=>{
     if(!table_type){
         return
     }
+
+    onToggleTableType(table)
+
 
     onQuery({
         url:api_endpoints[table].get,

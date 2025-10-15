@@ -23,15 +23,29 @@ body{
 .default_button{
     /* background: #3e7afa; */
     /* background: linear-gradient(0deg,rgba(86, 125, 191, 0.1) 30%, rgba(33, 129, 194,0.1) 28%, rgba(87, 192, 199,0.1) 69%, rgba(255, 255, 255, 1) 97%); */
-      background: linear-gradient(0deg,rgba(218, 218, 218, 0.9) 15%, rgb(202, 202, 202,0.9) 28%, rgba(251, 255, 255,0.9) 69%, rgb(255, 255, 255,0.9) 97%); 
+      /* background: linear-gradient(0deg,rgba(218, 218, 218, 0.9) 15%, rgb(202, 202, 202,0.9) 28%, rgba(251, 255, 255,0.9) 69%, rgb(255, 255, 255,0.9) 97%);  */
     /* box-shadow: 0rem 0rem 0.2rem rgb(0, 0, 0,0.2); */
     border-radius: 0.3rem;
     border: 0.12rem solid white;
     border-style: outset;
-    padding: 0.5rem;
+    padding: 1rem;
     color: rgb(68, 68, 68);
     cursor: pointer;
     /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+
+.default_button img{
+    width: 1.5rem;
+}
+
+.default_button:hover{
+    opacity: 50%;
 }
 
 /* .default_button:hover{
@@ -39,15 +53,20 @@ body{
     background: linear-gradient(0deg,rgb(130, 169, 255,0.3) 5%, rgba(33, 129, 194,0.3) 28%, rgba(87, 192, 199,0.3) 69%, rgba(255, 255, 255, 1) 97%);
 } */
 
+.default_button.default_button_disabled {
+    background-color: black;
+    opacity: 50%;
+}
 
 .icon_button_container{
     
     /* border: 0.2rem solid rgba(93, 120, 133, 0.3); */
-    border-radius: 0.5rem;
+    border-radius: 0.5rem 0.5rem 0rem 0rem;
     border: 0.12rem solid white;
     border-style: outset;
-    padding: 0.3rem 5rem 0.3rem 0.5rem;
-    background: linear-gradient(0deg,rgba(218, 218, 218, 0.6) 15%, rgb(202, 202, 202,0.6) 28%, rgba(251, 255, 255,0.6) 69%, rgb(255, 255, 255,0.6) 97%); 
+    border-bottom: none;
+    padding: 0.3rem 7rem 0.5rem 0.5rem;
+    background: linear-gradient(0deg,rgba(218, 218, 218, 1) 15%, rgb(202, 202, 202,1) 28%, rgba(251, 255, 255,1) 69%, rgb(255, 255, 255,1) 97%); 
     box-shadow: 0rem 0rem 0.8rem rgba(255, 255, 255, 0.3);
     text-align: center;
     cursor: pointer;
@@ -55,7 +74,15 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.5rem;
+    position: absolute;
+}
+
+.icon_button_container.icon_button_container_disabled {
+    background-color: black;
+    /* background: none; */
+    box-shadow: 0rem 0rem 0rem rgba(255, 255, 255, 0);
+    opacity: 70%;
 }
 
 .icon_button{
@@ -74,20 +101,18 @@ body{
 }
 
 .icon_button>img{
-    width: 2.5rem;
+    width: 1.8rem;
     /* background: linear-gradient(0deg,rgb(130, 169, 255,0.1) 15%, rgba(33, 129, 194,0.1) 28%, rgba(87, 192, 199,0.1) 69%, rgba(255, 255, 255, 0.1) 97%);  */
 }
 
 .icon_button_container span{
     font-size: 0.8rem;
     letter-spacing: 0.02rem;
-    color: rgb(255, 255, 255);
-    text-shadow:0rem 0.15rem 0.1rem rgb(15, 15, 15,0.6);
+    color: rgb(78, 78, 78);
 }
 
 
 .icon_button_container:hover{
-    scale: 1.05;
     box-shadow: 0rem 0rem 0.5rem white;
     img{
     filter: drop-shadow(0rem 0rem 0.3rem rgba(255, 255, 255));
