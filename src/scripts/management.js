@@ -281,6 +281,10 @@ const onDeleteTable = (document_structure)=>{
 
 const onResetTable = (document_structure)=>{
     onDeleteTable(document_structure);
+    variation_list.length = 0;
+    const variation_quantity_container = document.querySelector(".sale-product-quantity-container>.quantity-container>span")
+
+    variation_quantity_container.textContent = variation_list.length
     setTimeout(()=>{
         onQueryTableStructure()
     },1000)
@@ -306,6 +310,7 @@ const onChangeTableType = (type)=>{
     const current_url = new URL(window.location.href);
     current_url.searchParams.set('table',type)
     onCreateTableTitle("")
+
       product_register_button.disabled = (type === 'sale');
     //   product_register_button.classList.toggle("default_button_disabled")
         const sale_register_button = document.querySelector("#sale_register_button");

@@ -1,7 +1,7 @@
 const dialog_valid_type_list = [
     {
         type:'form',
-        title:"Cadastro",
+        title:"Formulário",
         tag:{
             type:"form",
             className:"form"

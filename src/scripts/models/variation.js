@@ -1,4 +1,3 @@
-import { size_form } from "./size.js"
 
 const variation_form = [
     {
