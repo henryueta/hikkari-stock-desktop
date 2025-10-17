@@ -24,6 +24,9 @@ const api_endpoints = {
         get_id:main_endpoint+"sale/get-id"+token_url_param,
         post:main_endpoint+"sale/post"+token_url_param,
         put:main_endpoint+"sale/put"+token_url_param
+    },
+    sale_product:{
+        get_list:main_endpoint+"sale/product/get-list"+token_url_param
     }
 
 }

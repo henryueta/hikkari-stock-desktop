@@ -52,11 +52,13 @@ const table_type_list = [
                 } else{
                     variation_list.splice(variation_list.findIndex((variation_item)=>variation_item === id),1)
                 }
+                const variation_quantity_container = document.querySelector(".sale-product-quantity-container>.quantity-container>span")
+
+                    variation_quantity_container.textContent = variation_list.length
                 if(!!variation_list.length){
                     // sale_register_button.style.display = "block";
                     sale_register_button.disabled = false;
-
-        // sale_register_button.classList.remove("default_button_disabled")
+                // sale_register_button.classList.remove("default_button_disabled")
 
                     sale_register_button.onclick = async ()=>{
                         
@@ -90,6 +92,8 @@ const table_type_list = [
                     return 
                 }
                     // sale_register_button.style.display = "none";
+                
+
                     sale_register_button.disabled = true;
                     // sale_register_button.classList.toggle("default_button_disabled")
                 return 

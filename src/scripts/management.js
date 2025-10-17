@@ -1,6 +1,7 @@
 import { api_endpoints } from "./config/config.js";
 import { onQuery } from "./fetch.js";
 import { table_type_list } from "./objects/table.js";
+import { variation_list } from "./sale.js";
 import { onCoupledDialog } from "./test.js";
 
 const onCreateDefaultTableHeaderAction = (title)=>{
@@ -320,6 +321,14 @@ const onChangeTableType = (type)=>{
 }
 const product_register_button = document.querySelector("#product_register_button")
 product_register_button.onclick = ()=>onCoupledDialog("form","product","post")
+
+const sale_product_quantity_container = document.querySelector(".sale-product-quantity-container>button")
+
+sale_product_quantity_container.onclick = ()=>{
+    if(variation_list.length){
+        onCoupledDialog("list_view","sale_product")
+    }
+}
 
 const product_table_type_button  = document.querySelector("#product_type_button_container");
 const sale_table_type_button  = document.querySelector("#sale_type_button_container");

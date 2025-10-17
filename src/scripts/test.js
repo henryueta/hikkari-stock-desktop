@@ -2,9 +2,10 @@ import { api_endpoints } from "./config/config.js";
 import { Dialog } from "./dialog.js";
 import { onQuery } from "./fetch.js";
 import { onCreateForm, onDeleteForm, onDisableFormFields } from "./form.js";
-import { onChangeTableType, onResetTable } from "./management.js";
+import { onResetTable } from "./management.js";
 import { dialog_valid_type_list } from "./objects/dialog.js";
 import { table_type_list } from "./objects/table.js";
+import { variation_list } from "./sale.js";
 
 const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValues)=>{
     const dialog = new Dialog(".dialog")
@@ -41,6 +42,47 @@ const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValue
         : null 
     ); 
     
+    if(type === 'list_view'){
+        let current_list = [];
+        await onQuery({
+            url:api_endpoints[table].get_list,
+            method:"post",
+            body:{
+                ids:variation_list
+            }
+        },{
+            onThen(data){
+                current_list = data.list;
+                 for(const item of current_list){
+
+                    const item_view_container = document.createElement("div")
+                    item_view_container.setAttribute("class","item-view-container")
+                    item_view_container.innerHTML = 
+                    `
+                    <label>
+                    <p>Produto</p>
+                    <input disabled value="${item.product}"/>
+                    </label>
+
+                    <label>
+                    <p>Variação</p>
+                    <input disabled value="${item.variation}"/>
+                    </label>
+
+                    <label>
+                    <p>Quantidade</p>
+                    <input disabled value="${item.quantity}"/>
+                    </label>
+                    `
+                    tag.append(item_view_container)
+                }
+            }
+        })
+
+       
+
+    }   
+
     if(type === 'delete_confirm'){
         
         const confirm_ask_container = document.createElement("div")
@@ -73,7 +115,7 @@ const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValue
         confirm_button.setAttribute("id","confirm-button")
         const cancel_button = document.createElement("button")
         cancel_button.innerHTML = "Cancelar"
-        confirm_button.setAttribute("id","cancel-button")
+        cancel_button.setAttribute("id","cancel-button")
 
         confirm_actions_container.append(cancel_button)
         cancel_button.onclick = ()=>{dialog.onCloseModal()}

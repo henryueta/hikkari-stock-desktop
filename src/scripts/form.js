@@ -137,7 +137,6 @@ const onCreateForm = (
 
             const coupled_content = document.createElement("div");
             coupled_content.setAttribute("class","coupled-container")
-            coupled_content.innerHTML = "Coupled"
             const coupled_form_button  = document.createElement("button")
             coupled_form_button.setAttribute("type","button")
             coupled_form_button.innerHTML = 
