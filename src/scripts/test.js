@@ -129,8 +129,8 @@ const onCoupledDialog = async (type,table,method,id,defaultValues,maxNumberValue
                     current_table.type === 'sale'
                     ? "&stock_devolution="+(()=>{
 
-                        const stock_devolution = document.querySelector("stock_devolution_id")
-                        return stock_devolution.value
+                        const stock_devolution = document.querySelector("#stock_devolution_id")
+                        return stock_devolution.checked
                     })()
                     : ""
                 ),

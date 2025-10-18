@@ -176,7 +176,7 @@ const onCreateTable = (document_structure,header,data,table)=>{
         table_header_row.append(edit_header_column)
     }
 
-    if(table.default_actions.delete && !!table.expansion.expansive){
+    if(table.default_actions.delete && !!table.havePage){
         const delete_header_column = onCreateTableHeaderAction('delete')    
         table_header_row.append(delete_header_column)
     }
@@ -239,7 +239,7 @@ const onCreateTable = (document_structure,header,data,table)=>{
             table_data_row.append(edit_column)
         }
 
-        if(table.default_actions.delete && !!table.expansion.expansive){
+        if(table.default_actions.delete && !!table.havePage){
             const delete_column = onCreateTableDataAction('delete',{
                 id:table_id,
                 table:table.type
@@ -341,6 +341,23 @@ const sale_table_type_button  = document.querySelector("#sale_type_button_contai
 product_table_type_button.onclick = ()=>{onChangeTableType("product");}
 sale_table_type_button.onclick = ()=>{onChangeTableType("sale");}
 
+const onQueryLatestBackupInfo = ()=>{
+
+    onQuery({
+        url:api_endpoints.backup.get,
+        method:"get"
+    },{
+        onThen(data){
+            const backup_date_info = document.querySelectorAll("#backup-date-info span")
+            backup_date_info[0].innerHTML = `Último backup realizado em ${data.date}`
+            backup_date_info[1].innerHTML = `Tamanho: ${data.count} registros`
+            
+        }
+    })
+
+
+}
+
 const onQueryTableStructure = ()=>{
 
     const url_value = window.location.search;
@@ -378,7 +395,7 @@ const onQueryTableStructure = ()=>{
 }
 
 onQueryTableStructure()
-
+onQueryLatestBackupInfo()
 
 
 export {
